@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
+require "byebug"
 require "barcodes_in_alma"
+
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

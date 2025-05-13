@@ -8,6 +8,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
+    byebug (12.0.0)
     date (3.4.1)
     diff-lcs (1.6.1)
     io-console (0.8.0)
@@ -79,6 +80,7 @@ PLATFORMS
 
 DEPENDENCIES
   barcodes_in_alma!
+  byebug
   irb
   rake (~> 13.0)
   rspec (~> 3.0)
