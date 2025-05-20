@@ -18,4 +18,8 @@ class BarcodesInAlma
     csv = BarcodesInAlma.download_barcodes('sc_active_barcodes.csv')
     CSV.read(csv, headers: true).map { |row| row['Barcode'] }.to_set
   end
+
+  def already_in_alma?(barcode)
+    barcodes.include?(barcode)
+  end
 end
