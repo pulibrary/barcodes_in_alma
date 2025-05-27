@@ -36,5 +36,19 @@ RSpec.describe BarcodesInAlma do
     it 'compares a single barcode that is not included to the set of barcodes' do
       expect(described_class.new.already_in_alma?(barcode2)).to eq(false)
     end
+
+    describe 'removing and renaming files' do
+      before do
+        allow(sftp_session).to receive(:stat).and_yield(instance_double('Request', ok?: true))
+        allow(sftp_session).to receive(:rename!)
+          .with('/alma/aspace/spec/fixtures/sc_active_barcodes.csv', '/alma/aspace/sc_active_barcodes_old.csv')
+      end
+      it 'renames the barcodes file' do
+        described_class.rename_file('/alma/aspace/spec/fixtures/sc_active_barcodes.csv',
+                                    '/alma/aspace/sc_active_barcodes_old.csv')
+        expect(sftp_session).to have_received(:rename!).with('/alma/aspace/spec/fixtures/sc_active_barcodes.csv',
+                                                             '/alma/aspace/sc_active_barcodes_old.csv')
+      end
+    end
   end
 end

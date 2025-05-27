@@ -14,6 +14,15 @@ class BarcodesInAlma
     end
   end
 
+  def self.rename_file(original_path, new_path)
+    Net::SFTP.start(ENV.fetch('SFTP_HOST', nil), ENV.fetch('SFTP_USERNAME', nil),
+                    { password: ENV.fetch('SFTP_PASSWORD', nil) }) do |sftp|
+      sftp.stat(original_path) do |response|
+        sftp.rename!(original_path, new_path) if response.ok?
+      end
+    end
+  end
+
   def barcodes
     csv = BarcodesInAlma.download_barcodes('sc_active_barcodes.csv')
     CSV.read(csv, headers: true).map { |row| row['Barcode'] }.to_set
